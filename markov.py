@@ -54,13 +54,11 @@ def make_chains(text_string):
     words.append(None)
 
     for idx, word in enumerate(words[:-2]):
+
         key = (word, words[idx + 1])
-        value = words[idx + 2]
+        value = [words[idx + 2]]
 
-        if key not in chains:
-            chains[key] = []
-
-        chains[key].append(value)    
+        chains[key] = chains.get(key, []) + value
 
     return chains
 
