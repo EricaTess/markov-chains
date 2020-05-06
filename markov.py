@@ -53,10 +53,10 @@ def make_chains(text_string):
     words = text_string.split()
     words.append(None)
 
-    for idx, word in enumerate(words[:-2]):
+    for idx, word in enumerate(words[:-3]):
 
-        key = (word, words[idx + 1])
-        value = [words[idx + 2]]
+        key = (word, words[idx + 1], words[idx + 2])
+        value = [words[idx + 3]]
 
         chains[key] = chains.get(key, []) + value
 
@@ -72,13 +72,13 @@ def make_text(chains):
     """Return text from chains."""
 
     key = choice(list(chains.keys()))
-    words = [key[0], key[1]]
-    word = choice(chains[key])
+    words = [key[0], key[1], key[2]]
+    value = choice(chains[key])
 
-    while word is not None:
-        key = (key[1], word)
-        words.append(word)
-        word = choice(chains[key])
+    while value is not None:
+        key = (key[1], key[2], value)
+        words.append(value)
+        value = choice(chains[key])
 
     return " ".join(words)
 
